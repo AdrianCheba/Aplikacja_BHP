@@ -6,6 +6,9 @@ class PlayerInteractions : MonoBehaviour
     [SerializeField]
     PlayerConfig _playerConfig;
 
+    [SerializeField]
+    ShelfManager _shelfManager;
+
     LineRenderer _lineRenderer;
     Transform _hitTransform;
     Material[] _materials;
@@ -45,7 +48,7 @@ class PlayerInteractions : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
-                        hit.collider.transform.GetChild(0).gameObject.SetActive(true);
+                        _shelfManager.ToggleEnable(_hitTransform.name);
                 }
             }
         }
