@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 class PlayerInteractions : MonoBehaviour
 {
     [SerializeField]
@@ -8,6 +7,9 @@ class PlayerInteractions : MonoBehaviour
 
     [SerializeField]
     ShelfManager _shelfManager;
+
+    [SerializeField]
+    EquipmentManager _equipmentManager;
 
     LineRenderer _lineRenderer;
     Transform _hitTransform;
@@ -50,6 +52,10 @@ class PlayerInteractions : MonoBehaviour
                     if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
                         _shelfManager.ToggleEnable(_hitTransform.name);
                 }
+
+                if (Input.GetMouseButton(0))
+                    if (_hitTransform.CompareTag(_playerConfig.EquipmentTag))
+                        _equipmentManager.PickObject(ray.GetPoint(_playerConfig.LaserDistance), _hitTransform.name);
             }
         }
     }
