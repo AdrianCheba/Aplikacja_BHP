@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 class PlayerInteractions : MonoBehaviour
@@ -10,6 +11,9 @@ class PlayerInteractions : MonoBehaviour
 
     [SerializeField]
     EquipmentManager _equipmentManager;
+
+    [SerializeField]
+    TextMeshProUGUI _informationText;
 
     LineRenderer _lineRenderer;
     Transform _hitTransform;
@@ -49,13 +53,25 @@ class PlayerInteractions : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
-                        _shelfManager.ToggleEnable(_hitTransform.name);
+                    if (!_equipmentManager.IsItemPicked)
+                    {
+                        if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
+                            _shelfManager.ToggleEnable(_hitTransform.name);
+                    }
+                    else
+                        _informationText.text = "To close the cabinet, you must put the item down. Use right mouse button to do this";
+
                 }
 
                 if (Input.GetMouseButton(0))
                     if (_hitTransform.CompareTag(_playerConfig.EquipmentTag))
-                        _equipmentManager.PickObject(ray.GetPoint(_playerConfig.LaserDistance), _hitTransform.name);
+                        _equipmentManager.PickItem(ray.GetPoint(_playerConfig.LaserDistance), _hitTransform.name);
+
+                if (Input.GetMouseButtonDown(1))
+                    if (_hitTransform.CompareTag(_playerConfig.EquipmentTag))
+                        if (_equipmentManager.IsItemPicked)
+                            _equipmentManager.RestartPickObjectPosition();
+
             }
         }
     }

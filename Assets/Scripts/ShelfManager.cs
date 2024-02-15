@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 class ShelfManager : MonoBehaviour
@@ -5,6 +6,8 @@ class ShelfManager : MonoBehaviour
     [SerializeField]
     Transform[] _shelves;
 
+    [SerializeField]
+    TextMeshProUGUI _informationText;
 
     int _activeShelfID = -1;
 
@@ -32,9 +35,10 @@ class ShelfManager : MonoBehaviour
         {
             _shelves[_activeShelfID].GetChild(0).gameObject.SetActive(!isActiveAndEnabled);
             _activeShelfID = -1;
+            _informationText.text = string.Empty;
         }
         else
-            Debug.Log("Only one shelf should be open, current open shelf : " + _activeShelfID);
+            _informationText.text = "Only one cabinet can be open, close a cabinet to open another";
 
     }
 }
