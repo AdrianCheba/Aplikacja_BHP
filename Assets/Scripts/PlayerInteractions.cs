@@ -13,7 +13,7 @@ class PlayerInteractions : MonoBehaviour
     EquipmentManager _equipmentManager;
 
     [SerializeField]
-    TextMeshProUGUI _informationText;
+    UIManager _uiManager;
 
     LineRenderer _lineRenderer;
     Transform _hitTransform;
@@ -28,6 +28,9 @@ class PlayerInteractions : MonoBehaviour
 
     void Update()
     {
+        if(_uiManager.IsPause)
+            return;
+
         if (_hitTransform != null && _materials != null)
         {
             foreach (Material mat in _materials)
@@ -49,18 +52,16 @@ class PlayerInteractions : MonoBehaviour
                 _materials = renderer.materials;
 
                 foreach (Material mat in _materials)
-                    mat.SetFloat(_outlineScale, 1.025f);
+                    mat.SetFloat(_outlineScale, _playerConfig.OutlineScaleValue);
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (!_equipmentManager.IsItemPicked)
-                    {
-                        if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
+                    if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
+                        if (!_equipmentManager.IsItemPicked)
+                        {
                             _shelfManager.ToggleEnable(_hitTransform.name);
-                    }
-                    else
-                        _informationText.text = "To close the cabinet, you must put the item down. Use right mouse button to do this";
-
+                        }else
+                            _uiManager.InformationText(_playerConfig.InformationText);
                 }
 
                 if (Input.GetMouseButton(0))

@@ -7,7 +7,9 @@ class ShelfManager : MonoBehaviour
     Transform[] _shelves;
 
     [SerializeField]
-    TextMeshProUGUI _informationText;
+    UIManager _uiManager;
+
+    static readonly string InformationText = "Only one cabinet can be open, close a cabinet to open another";
 
     int _activeShelfID = -1;
 
@@ -35,10 +37,9 @@ class ShelfManager : MonoBehaviour
         {
             _shelves[_activeShelfID].GetChild(0).gameObject.SetActive(!isActiveAndEnabled);
             _activeShelfID = -1;
-            _informationText.text = string.Empty;
         }
         else
-            _informationText.text = "Only one cabinet can be open, close a cabinet to open another";
+            _uiManager.InformationText(InformationText);
 
     }
 }

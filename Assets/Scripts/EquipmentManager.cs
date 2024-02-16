@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
@@ -12,12 +14,6 @@ public class EquipmentManager : MonoBehaviour
         }
     }
     bool _isItemPicked;
-
-    internal Vector3 CurrentItemStartPoint
-    {
-        get => _currentItemStartPoint;
-    }
-    Vector3 _currentItemStartPoint;
 
     internal int EquippedItemCounter
     {
@@ -33,13 +29,21 @@ public class EquipmentManager : MonoBehaviour
     Transform[] _equipment;
 
     [SerializeField]
-    TextMeshProUGUI _informationText;
+    UIManager _uiManager;
 
+    Vector3 _currentItemStartPoint;
     Transform _itemParent;
     Transform _currentItem;
 
-    
+    static readonly string InformationText = "When selecting another item, the previously selected item must be put back. Use right mouse button to do this";
 
+    private void Update()
+    {
+        if(_equippedItemCounter == 8)
+        {
+            _uiManager.GoToNextLevel();
+        }
+    }
 
 
     internal void PickItem(Vector3 rayPoint, string itemName)
@@ -58,11 +62,10 @@ public class EquipmentManager : MonoBehaviour
                     _currentItem.SetParent(null);
                 }
                 else if (_currentItem.name != itemName && _isItemPicked)
-                    _informationText.text = "When selecting another item, the previously selected item must be put back. Use right mouse button to do this";
+                    _uiManager.InformationText(InformationText);
                 else
                 {
                     _currentItem.position = rayPoint;
-                    _informationText.text = string.Empty;
                 }
             }
         }
@@ -73,6 +76,5 @@ public class EquipmentManager : MonoBehaviour
         _currentItem.position = _currentItemStartPoint;
         _currentItem.SetParent(_itemParent);
         _isItemPicked = false;
-        _informationText.text = string.Empty;
     }
 }
