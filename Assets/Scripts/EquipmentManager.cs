@@ -39,7 +39,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void Update()
     {
-        if(_equippedItemCounter == 8)
+        if(_equippedItemCounter == 9)
         {
             _uiManager.GoToNextLevel();
         }
