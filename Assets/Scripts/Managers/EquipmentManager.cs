@@ -5,20 +5,14 @@ public class EquipmentManager : MonoBehaviour
     internal bool IsItemPicked
     {
         get => _isItemPicked;
-        set
-        {
-            _isItemPicked = value;
-        }
+        set => _isItemPicked = value;
     }
     bool _isItemPicked;
 
     internal int EquippedItemCounter
     {
         get => _equippedItemCounter;
-        set
-        {
-            _equippedItemCounter = value;
-        }
+        set => _equippedItemCounter = value;
     }
     int _equippedItemCounter = 0;
 
@@ -59,7 +53,7 @@ public class EquipmentManager : MonoBehaviour
                     _currentItem.SetParent(null);
                 }
                 else if (_currentItem.name != itemName && _isItemPicked)
-                    _uiManager.InformationText(InformationText);
+                    StartCoroutine(_uiManager.InformationText(InformationText));
                 else
                 {
                     _currentItem.position = rayPoint;

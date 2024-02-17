@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,9 +14,15 @@ public class UIManager : MonoBehaviour
     
     [SerializeField]
     TextMeshProUGUI _measurementResultText;
+    
+    [SerializeField]
+    TextMeshProUGUI _ring;
 
     [SerializeField]
     Transform _panel;
+
+    [SerializeField]
+    Image _crossHair;
 
     internal bool IsPause
     {
@@ -23,10 +30,18 @@ public class UIManager : MonoBehaviour
     }
     bool _isPause;
 
-    internal void InformationText(string text)
+    internal IEnumerator InformationText(string text)
     {
         _informationText.text = text;
-        Invoke(nameof(CleanInformation), 3f);
+        yield return new WaitForSeconds(3f);
+        _informationText.text = string.Empty;
+    }
+
+    internal IEnumerator SetMeasurementResultText(string text)
+    {
+        _measurementResultText.text = text;
+        yield return new WaitForSeconds(3f);
+        _measurementResultText.text = string.Empty;
     }
 
     internal void SetDoorInteractionText(string text)
@@ -34,9 +49,14 @@ public class UIManager : MonoBehaviour
         _doorInteractionText.text = text;
     }
 
-    internal void SetMeasurementResultText(string text) 
+    internal void SetCrossHairActie(bool value)
     {
-        _measurementResultText.text = text;
+        _crossHair.gameObject.SetActive(value);
+    }
+
+    internal void SetRingText(string text) 
+    {
+        _ring.text = text;
     }
 
     internal void GoToNextLevel()
@@ -56,5 +76,4 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void CleanInformation() { _informationText.text = string.Empty; }
 }

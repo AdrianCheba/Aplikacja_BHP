@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 class PlayerInteractions : MonoBehaviour
-{
+{   
     [SerializeField]
     PlayerConfig _playerConfig;
 
@@ -20,18 +20,38 @@ class PlayerInteractions : MonoBehaviour
     LineRenderer _lineRenderer;
     Transform _hitTransform;
     Material[] _materials;
+    int _ringValue;
     static readonly int _outlineScale = Shader.PropertyToID("_OutlineScale");
 
     void Start()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Scene1")) 
+        _inputManager = GetComponent<InputManager>();
+        Cursor.visible = false;
+        _ringValue = 0;
+        _uiManager.SetRingText(_ringValue.ToString());
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Scene1"))
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.SetPosition(0, transform.position);
+            _uiManager.SetCrossHairActie(false);
         }
-        _inputManager = GetComponent<InputManager>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _uiManager.SetCrossHairActie(true);
+        }
+    }
+
+    public bool IsScrollUp()
+    {
+        float value = _inputManager.Gameplay.MouseScroll.ReadValue<float>();
+        return value > 0.1f;
+    }   
+    public bool IsScrollDown()
+    {
+        float value = _inputManager.Gameplay.MouseScroll.ReadValue<float>();
+        return value < -0.1f;
     }
 
     void Update()
@@ -52,6 +72,17 @@ class PlayerInteractions : MonoBehaviour
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
             _lineRenderer.SetPosition(1, ray.GetPoint(_playerConfig.LaserDistance));
+        
+        if (IsScrollUp())
+        {
+            _ringValue++;
+            _uiManager.SetRingText(_ringValue.ToString());
+        }
+        else if (IsScrollDown())
+        {
+            _ringValue--;
+            _uiManager.SetRingText(_ringValue.ToString());
+        }
 
         if (Physics.Raycast(ray, out RaycastHit hit, _playerConfig.LaserDistance))
         {
@@ -69,7 +100,7 @@ class PlayerInteractions : MonoBehaviour
                     _uiManager.SetDoorInteractionText(_playerConfig.DoorInformationText);
 
                     if(_inputManager.Gameplay.Measurement.triggered)
-                        _uiManager.SetMeasurementResultText(_hitTransform.GetComponent<DoorManager>().MeasurementResult.ToString());
+                        StartCoroutine(_uiManager.SetMeasurementResultText(_hitTransform.GetComponent<DoorManager>().MeasurementResult.ToString()));
                 }
 
                 if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -80,7 +111,9 @@ class PlayerInteractions : MonoBehaviour
                             _shelfManager.ToggleSwitch(_hitTransform.name);
                         }
                         else
-                            _uiManager.InformationText(_playerConfig.InformationText);
+                            StartCoroutine(_uiManager.InformationText(_playerConfig.InformationText));
+                    if (_hitTransform.CompareTag(_playerConfig.DoorTag))
+                        _hitTransform.GetComponent<DoorManager>().MeasurementResult -= _ringValue;
                 };
 
                 if (Mouse.current.leftButton.isPressed)

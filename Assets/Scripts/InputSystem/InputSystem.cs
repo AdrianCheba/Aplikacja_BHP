@@ -55,13 +55,31 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Measurement"",
+                    ""name"": ""OpenDoor"",
                     ""type"": ""Button"",
                     ""id"": ""3b1ada63-c9bb-4832-8cec-6b9024357102"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Measurement"",
+                    ""type"": ""Button"",
+                    ""id"": ""c379dbc9-1d2e-4b0e-96b9-ecb1196b2642"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseScroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""50fd0323-92c0-45ee-9a35-2808a82354a8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -149,7 +167,29 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""OpenDoor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99b26062-14d0-4080-b1e5-8b3ca206810a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Measurement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""677c9f72-ab95-46b1-97b8-be5242fb93e0"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -163,7 +203,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_OpenDoor = m_Gameplay.FindAction("OpenDoor", throwIfNotFound: true);
         m_Gameplay_Measurement = m_Gameplay.FindAction("Measurement", throwIfNotFound: true);
+        m_Gameplay_MouseScroll = m_Gameplay.FindAction("MouseScroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -228,7 +270,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_OpenDoor;
     private readonly InputAction m_Gameplay_Measurement;
+    private readonly InputAction m_Gameplay_MouseScroll;
     public struct GameplayActions
     {
         private @InputSystem m_Wrapper;
@@ -236,7 +280,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @OpenDoor => m_Wrapper.m_Gameplay_OpenDoor;
         public InputAction @Measurement => m_Wrapper.m_Gameplay_Measurement;
+        public InputAction @MouseScroll => m_Wrapper.m_Gameplay_MouseScroll;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -255,9 +301,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @OpenDoor.started += instance.OnOpenDoor;
+            @OpenDoor.performed += instance.OnOpenDoor;
+            @OpenDoor.canceled += instance.OnOpenDoor;
             @Measurement.started += instance.OnMeasurement;
             @Measurement.performed += instance.OnMeasurement;
             @Measurement.canceled += instance.OnMeasurement;
+            @MouseScroll.started += instance.OnMouseScroll;
+            @MouseScroll.performed += instance.OnMouseScroll;
+            @MouseScroll.canceled += instance.OnMouseScroll;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -271,9 +323,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @OpenDoor.started -= instance.OnOpenDoor;
+            @OpenDoor.performed -= instance.OnOpenDoor;
+            @OpenDoor.canceled -= instance.OnOpenDoor;
             @Measurement.started -= instance.OnMeasurement;
             @Measurement.performed -= instance.OnMeasurement;
             @Measurement.canceled -= instance.OnMeasurement;
+            @MouseScroll.started -= instance.OnMouseScroll;
+            @MouseScroll.performed -= instance.OnMouseScroll;
+            @MouseScroll.canceled -= instance.OnMouseScroll;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -296,6 +354,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnOpenDoor(InputAction.CallbackContext context);
         void OnMeasurement(InputAction.CallbackContext context);
+        void OnMouseScroll(InputAction.CallbackContext context);
     }
 }

@@ -33,13 +33,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Measurement",
+                    "name": "OpenDoor",
                     "type": "Button",
                     "id": "3b1ada63-c9bb-4832-8cec-6b9024357102",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Measurement",
+                    "type": "Button",
+                    "id": "c379dbc9-1d2e-4b0e-96b9-ecb1196b2642",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseScroll",
+                    "type": "Value",
+                    "id": "50fd0323-92c0-45ee-9a35-2808a82354a8",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -127,7 +145,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "OpenDoor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99b26062-14d0-4080-b1e5-8b3ca206810a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Measurement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "677c9f72-ab95-46b1-97b8-be5242fb93e0",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

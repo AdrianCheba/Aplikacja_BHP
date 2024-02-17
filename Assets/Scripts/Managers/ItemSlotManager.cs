@@ -22,11 +22,11 @@ class ItemSlotManager : MonoBehaviour
                 _equipmentManager.IsItemPicked = false;
                 _equipmentManager.EquippedItemCounter++;
                 other.gameObject.SetActive(false);
-                _uiManager.InformationText(string.Empty);
+                StartCoroutine(_uiManager.InformationText(string.Empty));
                 break;
             }
             else
-                _uiManager.InformationText(InformationText);
+                StartCoroutine(_uiManager.InformationText(InformationText));
         }
     }
 }

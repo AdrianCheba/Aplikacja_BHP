@@ -38,7 +38,7 @@ class ShelfManager : MonoBehaviour
             _activeShelfID = -1;
         }
         else
-            _uiManager.InformationText(InformationText);
+            StartCoroutine(_uiManager.InformationText(InformationText));
 
     }
 }
