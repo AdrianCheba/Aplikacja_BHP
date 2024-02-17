@@ -1,0 +1,34 @@
+{
+    "name": "InputSystem",
+    "maps": [
+        {
+            "name": "Movement",
+            "id": "54699433-615a-4376-8452-4f9fc7f83995",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "d0d0f254-ffc5-49ac-bd6c-a9eec8d77516",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3a1dccbd-28f9-4b64-817e-84c7a8fd09a6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

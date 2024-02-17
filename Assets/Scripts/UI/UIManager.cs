@@ -1,8 +1,6 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +25,7 @@ public class UIManager : MonoBehaviour
     internal void GoToNextLevel()
     {
         _panel.gameObject.SetActive(true);
+        Cursor.visible = true;
         _isPause = true;
     }
 

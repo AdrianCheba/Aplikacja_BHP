@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-class ItemSlot : MonoBehaviour
+class ItemSlotManager : MonoBehaviour
 {
     [SerializeField]
     EquipmentManager _equipmentManager;

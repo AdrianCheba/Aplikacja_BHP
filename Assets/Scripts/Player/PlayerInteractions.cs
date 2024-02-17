@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 class PlayerInteractions : MonoBehaviour
@@ -24,6 +23,7 @@ class PlayerInteractions : MonoBehaviour
     {
         _lineRenderer = GetComponent<LineRenderer>();
         _lineRenderer.SetPosition(0, transform.position);
+        Cursor.visible = false;
     }
 
     void Update()
