@@ -1,11 +1,18 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI _informationText;
+
+    [SerializeField]
+    TextMeshProUGUI _doorInteractionText;
+    
+    [SerializeField]
+    TextMeshProUGUI _measurementResultText;
 
     [SerializeField]
     Transform _panel;
@@ -22,6 +29,16 @@ public class UIManager : MonoBehaviour
         Invoke(nameof(CleanInformation), 3f);
     }
 
+    internal void SetDoorInteractionText(string text)
+    {
+        _doorInteractionText.text = text;
+    }
+
+    internal void SetMeasurementResultText(string text) 
+    {
+        _measurementResultText.text = text;
+    }
+
     internal void GoToNextLevel()
     {
         _panel.gameObject.SetActive(true);
@@ -36,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void CleanInformation() { _informationText.text = string.Empty; }

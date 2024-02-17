@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 class ShelfManager : MonoBehaviour
@@ -13,7 +12,7 @@ class ShelfManager : MonoBehaviour
 
     int _activeShelfID = -1;
 
-    internal void ToggleEnable(string shelfName)
+    internal void ToggleSwitch(string shelfName)
     {
         if (_activeShelfID == -1)
         {

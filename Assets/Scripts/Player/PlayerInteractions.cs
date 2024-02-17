@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 class PlayerInteractions : MonoBehaviour
 {
@@ -13,7 +15,8 @@ class PlayerInteractions : MonoBehaviour
 
     [SerializeField]
     UIManager _uiManager;
-
+    
+    InputManager _inputManager;
     LineRenderer _lineRenderer;
     Transform _hitTransform;
     Material[] _materials;
@@ -21,9 +24,14 @@ class PlayerInteractions : MonoBehaviour
 
     void Start()
     {
-        _lineRenderer = GetComponent<LineRenderer>();
-        _lineRenderer.SetPosition(0, transform.position);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Scene1")) 
+        {
+            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer.SetPosition(0, transform.position);
+        }
+        _inputManager = GetComponent<InputManager>();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -36,12 +44,14 @@ class PlayerInteractions : MonoBehaviour
             foreach (Material mat in _materials)
                 mat.SetFloat(_outlineScale, 1f);
             _hitTransform = null;
+            _uiManager.SetDoorInteractionText(string.Empty);
         }
 
-        Vector3 mousePosition = Input.mousePosition;
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-        _lineRenderer.SetPosition(1, ray.GetPoint(_playerConfig.LaserDistance));
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+            _lineRenderer.SetPosition(1, ray.GetPoint(_playerConfig.LaserDistance));
 
         if (Physics.Raycast(ray, out RaycastHit hit, _playerConfig.LaserDistance))
         {
@@ -54,21 +64,30 @@ class PlayerInteractions : MonoBehaviour
                 foreach (Material mat in _materials)
                     mat.SetFloat(_outlineScale, _playerConfig.OutlineScaleValue);
 
-                if (Input.GetMouseButtonDown(0))
+                if (_hitTransform.CompareTag(_playerConfig.DoorTag))
+                {
+                    _uiManager.SetDoorInteractionText(_playerConfig.DoorInformationText);
+
+                    if(_inputManager.Gameplay.Measurement.triggered)
+                        _uiManager.SetMeasurementResultText(_hitTransform.GetComponent<DoorManager>().MeasurementResult.ToString());
+                }
+
+                if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     if (_hitTransform.CompareTag(_playerConfig.ShelfTag))
                         if (!_equipmentManager.IsItemPicked)
                         {
-                            _shelfManager.ToggleEnable(_hitTransform.name);
-                        }else
+                            _shelfManager.ToggleSwitch(_hitTransform.name);
+                        }
+                        else
                             _uiManager.InformationText(_playerConfig.InformationText);
-                }
+                };
 
-                if (Input.GetMouseButton(0))
+                if (Mouse.current.leftButton.isPressed)
                     if (_hitTransform.CompareTag(_playerConfig.EquipmentTag))
                         _equipmentManager.PickItem(ray.GetPoint(_playerConfig.LaserDistance), _hitTransform.name);
 
-                if (Input.GetMouseButtonDown(1))
+                if (Mouse.current.rightButton.wasPressedThisFrame)
                     if (_hitTransform.CompareTag(_playerConfig.EquipmentTag))
                         if (_equipmentManager.IsItemPicked)
                             _equipmentManager.RestartPickObjectPosition();
