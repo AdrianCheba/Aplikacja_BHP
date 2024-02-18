@@ -20,15 +20,22 @@ class PlayerInteractions : MonoBehaviour
     LineRenderer _lineRenderer;
     Transform _hitTransform;
     Material[] _materials;
+
+    internal int RingValue
+    {
+        get => _ringValue;
+        set => _ringValue = Mathf.Clamp(value, 0, 9);
+    }
     int _ringValue;
+
     static readonly int _outlineScale = Shader.PropertyToID("_OutlineScale");
 
     void Start()
     {
         _inputManager = GetComponent<InputManager>();
         Cursor.visible = false;
-        _ringValue = 0;
-        _uiManager.SetRingText(_ringValue.ToString());
+        RingValue = 0;
+        _uiManager.SetRingText(RingValue.ToString());
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Scene1"))
         {
@@ -75,13 +82,13 @@ class PlayerInteractions : MonoBehaviour
         
         if (IsScrollUp())
         {
-            _ringValue++;
-            _uiManager.SetRingText(_ringValue.ToString());
+            RingValue++;
+            _uiManager.SetRingText(RingValue.ToString());
         }
         else if (IsScrollDown())
         {
-            _ringValue--;
-            _uiManager.SetRingText(_ringValue.ToString());
+            RingValue--;
+            _uiManager.SetRingText(RingValue.ToString());
         }
 
         if (Physics.Raycast(ray, out RaycastHit hit, _playerConfig.LaserDistance))
@@ -99,8 +106,20 @@ class PlayerInteractions : MonoBehaviour
                 {
                     _uiManager.SetDoorInteractionText(_playerConfig.DoorInformationText);
 
-                    if(_inputManager.Gameplay.Measurement.triggered)
+                    if (_inputManager.Gameplay.Measurement.triggered)
+                    {
+                        if (!_hitTransform.GetComponent<DoorManager>().FirstCheck)
+                            _hitTransform.GetComponent<DoorManager>().FirstCheck = true;
+                        else
+                            _hitTransform.GetComponent <DoorManager>().SecondCheck = true;
+
                         StartCoroutine(_uiManager.SetMeasurementResultText(_hitTransform.GetComponent<DoorManager>().MeasurementResult.ToString()));
+                    }
+
+                    if (_inputManager.Gameplay.OpenDoor.triggered)
+                    {
+                        _hitTransform.GetComponent<DoorManager>().OpenDoor();
+                    }
                 }
 
                 if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -112,8 +131,9 @@ class PlayerInteractions : MonoBehaviour
                         }
                         else
                             StartCoroutine(_uiManager.InformationText(_playerConfig.InformationText));
+
                     if (_hitTransform.CompareTag(_playerConfig.DoorTag))
-                        _hitTransform.GetComponent<DoorManager>().MeasurementResult -= _ringValue;
+                        _hitTransform.GetComponent<DoorManager>().MeasurementResult -= RingValue;
                 };
 
                 if (Mouse.current.leftButton.isPressed)

@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   LaserDistance: 8
+  InteractableLayer: 6
+  PlayerHP: 3

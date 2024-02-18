@@ -32,7 +32,7 @@ public class EquipmentManager : MonoBehaviour
     {
         if(_equippedItemCounter == 9)
         {
-            _uiManager.GoToNextLevel();
+            _uiManager.ShowNextLevelScreen();
         }
     }
 

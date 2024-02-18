@@ -7,6 +7,9 @@ class PlayerConfig : ScriptableObject
     internal float LaserDistance = 6f;
     [SerializeField]
     internal int InteractableLayer = 6;
+    [SerializeField]
+    internal int PlayerHP = 3;
+
     internal float OutlineScaleValue = 1.025f;
     internal string EquipmentTag = "Equipment";
     internal string ShelfTag = "Shelf";
