@@ -44,13 +44,9 @@ class PlayerInteractions : MonoBehaviour
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.SetPosition(0, transform.position);
-            _uiManager.SetCrossHairActie(false);
         }
         else
-        {
             Cursor.lockState = CursorLockMode.Locked;
-            _uiManager.SetCrossHairActie(true);
-        }
     }
 
     public bool IsScrollUp()

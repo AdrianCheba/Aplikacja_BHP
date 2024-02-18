@@ -1,4 +1,3 @@
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 class WallManager : MonoBehaviour

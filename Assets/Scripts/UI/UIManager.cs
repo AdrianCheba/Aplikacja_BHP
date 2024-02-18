@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI _measurementResultText;
 
     [SerializeField]
-    TextMeshProUGUI _ring;
+    TextMeshProUGUI _ringValue;
 
     [SerializeField]
     Transform _nextLevelScreen;
@@ -26,13 +25,7 @@ public class UIManager : MonoBehaviour
     Transform _deathScreen;
 
     [SerializeField]
-    Image _crossHair;
-
-    [SerializeField]
     PlayerConfig _playerConfig;
-
-    [SerializeField]
-    ResultsManager _resultsManager;
     
     [SerializeField]
     RawImage _deviceScreen;
@@ -80,14 +73,9 @@ public class UIManager : MonoBehaviour
         _doorInteractionText.text = text;
     }
 
-    internal void SetCrossHairActie(bool value)
-    {
-        _crossHair.gameObject.SetActive(value);
-    }
-
     internal void SetRingText(string text) 
     {
-        _ring.text = text;
+        _ringValue.text = text;
     }
 
     internal void ShowNextLevelScreen()
@@ -103,7 +91,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        _crossHair.gameObject.SetActive(false);
         _deviceScreen.gameObject.SetActive(false);
         _deathScreen.gameObject.SetActive(true);
     }

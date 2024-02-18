@@ -13,6 +13,8 @@ class ResultsManager : MonoBehaviour
                 foreach (RoomManager room in _roomManager)
                 {
                     room.CheckWalls();
+                    _resultsUI.gameObject.SetActive(true);
+                    _resultsUI.ShowResults();
                 }
             }
         }
@@ -31,13 +33,14 @@ class ResultsManager : MonoBehaviour
                 foreach (RoomManager room in _roomManager)
                 {
                     room.CheckWalls();
+                    _resultsUI.gameObject.SetActive(true);
+                    _resultsUI.ShowResults();
                 }
             }
         }
     }
     [SerializeField]
     int _incorrectlyNeutralizedDoors;
-
     [SerializeField]
     internal int CorrectlyNeutralizedDoors;
     [SerializeField]
@@ -57,4 +60,7 @@ class ResultsManager : MonoBehaviour
 
     [SerializeField]
     RoomManager[] _roomManager;
+
+    [SerializeField]
+    ResultsUI _resultsUI;
 }
