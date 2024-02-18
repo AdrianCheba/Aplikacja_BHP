@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 class WallManager : MonoBehaviour
@@ -6,15 +7,25 @@ class WallManager : MonoBehaviour
     {
         get => _isHitCorrectly;
     }
-    [SerializeField]
     bool _isHitCorrectly;
 
     internal bool IsHitOnes
     {
         get => _isHitOnes;
     }
-    [SerializeField]
     bool _isHitOnes;
+    
+    internal bool IsHitManyTimes
+    {
+        get => _isHitManyTimes;
+    }
+    bool _isHitManyTimes;
+
+    internal bool InvalidRingValue
+    {
+        get => _invalidRingValue;
+    }
+    bool _invalidRingValue;
 
     internal void HitWall(int ringValue)
     {
@@ -26,12 +37,16 @@ class WallManager : MonoBehaviour
                 _isHitCorrectly = true;
             }
             else
+            {
                 _isHitCorrectly = false;
+                _isHitManyTimes = true;
+            }
         }
         else
         {
             _isHitOnes = true;
             _isHitCorrectly = false;
+            _invalidRingValue = true;
         }
     }
 }

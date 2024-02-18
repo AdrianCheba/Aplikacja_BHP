@@ -771,6 +771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5736476110823114171}
   - component: {fileID: 4508954832893475364}
+  - component: {fileID: 5268790305180822452}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -820,6 +821,27 @@ MonoBehaviour:
   - {fileID: 1303086324424109842}
   - {fileID: 5633686331304260111}
   _door: {fileID: 0}
+--- !u!65 &5268790305180822452
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6957388027983858587}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.221446, y: 4.9549713, z: 9.94986}
+  m_Center: {x: 5.1187387, y: 52.29033, z: 0.1091156}
 --- !u!1 &7142366402038294628
 GameObject:
   m_ObjectHideFlags: 0

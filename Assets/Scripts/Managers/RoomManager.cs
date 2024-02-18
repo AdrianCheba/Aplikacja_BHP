@@ -2,42 +2,18 @@ using UnityEngine;
 
 class RoomManager : MonoBehaviour
 {
-    internal bool CorrectRoom
-    {
-        get => _correctRoom;
-    }
-    [SerializeField]
-    bool _correctRoom;
-    internal int WallsHitedMore
-    {
-        get => _wallsHitedMore;
-    }
-    internal int _wallsHitedMore;
-
-    internal int WallsMissed
-    {
-        get=> _wallsMissed;
-    }
-    int _wallsMissed;
 
     [SerializeField]
     Transform[] _walls;
 
     [SerializeField]
-    GameObject _door;
+    ResultsManager _resultsManager;
 
     int _wallsHitedOnes;
+    bool _achievedRoom;
     readonly string WallTag = "Wall";
-
-
-    void Update()
-    {
-        if (!_door.activeSelf)
-            foreach (Transform wall in _walls)
-            {
-                wall.tag = WallTag;
-            }
-    }
+    readonly string UntaggedTag= "Untagged";
+    readonly string PlayerTag= "Player";
 
     internal void CheckWalls()
     {
@@ -45,15 +21,41 @@ class RoomManager : MonoBehaviour
         {
             if (wall.GetComponent<WallManager>().IsHitCorrectly)
                 _wallsHitedOnes++;
-            else if(!wall.GetComponent<WallManager>().IsHitCorrectly)
-                _wallsHitedMore++;
-            else if(!wall.GetComponent<WallManager>().IsHitOnes)
-                _wallsMissed++;
+            
+            if(wall.GetComponent<WallManager>().IsHitManyTimes)
+                _resultsManager.WallsHitedManyTimes++;
+
+            if(wall.GetComponent<WallManager>().IsHitOnes == false)
+                _resultsManager.MissedWalls++;
+
+            if (wall.GetComponent<WallManager>().InvalidRingValue)
+                _resultsManager.InvalidRingValue++;
         }
 
         if (_wallsHitedOnes == 6)
-            _correctRoom = true;
-        else
-            _correctRoom = false;
+            _resultsManager.CorrectRooms++;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(PlayerTag))
+            foreach (Transform wall in _walls)
+            {
+                wall.tag = WallTag;
+            }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(PlayerTag))
+            foreach (Transform wall in _walls)
+            {
+                wall.tag = UntaggedTag;
+                if (!_achievedRoom)
+                {
+                    _achievedRoom = true;
+                    _resultsManager.AchievedRooms++;
+                }
+            }
     }
 }
