@@ -7,6 +7,7 @@ TagManager:
   - Equipment
   - Shelf
   - Door
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,10 @@ class PlayerInteractions : MonoBehaviour
     EquipmentManager _equipmentManager;
 
     [SerializeField]
-    UIManager _uiManager;
+    UIManager _uiManager; 
+
+    [SerializeField]
+    RoomManager _roomManager;
     
     InputManager _inputManager;
     LineRenderer _lineRenderer;
@@ -92,7 +95,15 @@ class PlayerInteractions : MonoBehaviour
         }
 
         if (Physics.Raycast(ray, out RaycastHit hit, _playerConfig.LaserDistance))
-        {
+        {          
+            if (hit.transform.CompareTag(_playerConfig.WallTag))
+            {
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    hit.transform.GetComponent<WallManager>().HitWall(_ringValue);
+                }
+            }
+
             if (hit.transform.gameObject.layer == _playerConfig.InteractableLayer)
             {
                 _hitTransform = hit.transform;

@@ -2,43 +2,14 @@ using UnityEngine;
 
 class ResultsManager : MonoBehaviour
 {
-    internal int IncorrectlyNeutralizedDoors
-    {
-        get => _incorrectlyNeutralizedDoors;
-        set => _incorrectlyNeutralizedDoors = value;
-    }
-    [SerializeField]
-    int _incorrectlyNeutralizedDoors;
-
-    internal int CorrectlyNeutralizedDoors
-    {
-        get => _correctlyNeutralizedDoors;
-        set => _correctlyNeutralizedDoors = value;
-    }
-    [SerializeField]
-    int _correctlyNeutralizedDoors;
-
-    internal int NoMeasurements 
-    {
-        get => _noMeasurements; 
-        set => _noMeasurements = value;
-    }
-    [SerializeField]
-    int _noMeasurements;
-
-    internal int TooHighNeutralization
-    {
-        get => _tooHighNeutralization;
-        set => _tooHighNeutralization = value;
-    }
-    [SerializeField]
-    int _tooHighNeutralization;
-
-    internal int TooLowNeutralization
-    {
-        get => _tooLowNeutralization;
-        set => _tooLowNeutralization = value;
-    }
-    [SerializeField]
-    int _tooLowNeutralization;
+    internal int IncorrectlyNeutralizedDoors;
+    internal int CorrectlyNeutralizedDoors;
+    internal int NoMeasurements;
+    internal int TooHighNeutralization;
+    internal int TooLowNeutralization;
+    internal int CorrectRooms;
+    internal int InorrectRooms;
+    internal int WrongRingValue;
+    internal int MissedWalls;
+    internal int WallsHitedManyTimes;
 }

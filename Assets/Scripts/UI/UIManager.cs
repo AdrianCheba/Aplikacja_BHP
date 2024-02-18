@@ -29,7 +29,10 @@ public class UIManager : MonoBehaviour
     Image _crossHair;
 
     [SerializeField]
-    PlayerConfig _playerConfig; 
+    PlayerConfig _playerConfig;
+
+    [SerializeField]
+    ResultsManager _resultsManager;
     
     [SerializeField]
     RawImage _deviceScreen;
@@ -120,5 +123,4 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
 }
