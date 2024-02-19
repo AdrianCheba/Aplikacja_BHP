@@ -35,15 +35,19 @@ class PlayerInteractions : MonoBehaviour
         _inputManager = GetComponent<InputManager>();
         Cursor.visible = false;
         RingValue = 0;
-        _uiManager.SetRingText(RingValue.ToString());
+
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Scene1"))
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.SetPosition(0, transform.position);
+            _uiManager.SetRingText(string.Empty);
         }
         else
+        {
             Cursor.lockState = CursorLockMode.Locked;
+            _uiManager.SetRingText(RingValue.ToString());
+        }
     }
 
     public bool IsScrollUp()
