@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17966677, g: 0.22496146, b: 0.30650416, a: 1}
+  m_IndirectSpecularColor: {r: 0.17736506, g: 0.22204697, b: 0.30427635, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1275,16 +1275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8974ba80e2c389942976f0be129ca87d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _achievedRooms: 0
-  _incorrectlyNeutralizedDoors: 0
-  CorrectlyNeutralizedDoors: 0
-  NoMeasurements: 0
-  TooHighNeutralization: 0
-  TooLowNeutralization: 0
-  CorrectRooms: 0
-  InvalidRingValue: 0
-  MissedWalls: 0
-  WallsHitedManyTimes: 0
   _roomManager:
   - {fileID: 1719307531}
   - {fileID: 1780695751}
@@ -1494,7 +1484,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.78
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1552,13 +1542,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797119969}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43810403, y: 0.11245143, z: -0.04960485, w: 0.89048237}
+  m_LocalRotation: {x: 0.50687325, y: 0.01783695, z: 0.017112764, w: 0.8616662}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 52.317, y: 14.864, z: 0.955}
+  m_LocalEulerAnglesHint: {x: 60.797, y: 5.656, z: 5.596}
 --- !u!114 &797119972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3087,9 +3077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1621b224cb59d488a303d8f867ca2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpHeighy: 2
-  gravity: -9.8
+  _playerConfig: {fileID: 11400000, guid: 1292904e73ba51b4f90c10f18a4eee1b, type: 2}
 --- !u!114 &2032711619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3106,7 +3094,6 @@ MonoBehaviour:
   _shelfManager: {fileID: 0}
   _equipmentManager: {fileID: 0}
   _uiManager: {fileID: 3761470023327719856}
-  _roomManager: {fileID: 0}
 --- !u!1 &2055475969
 GameObject:
   m_ObjectHideFlags: 0

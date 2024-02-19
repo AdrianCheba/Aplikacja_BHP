@@ -2,7 +2,6 @@ using UnityEngine;
 
 class RoomManager : MonoBehaviour
 {
-
     [SerializeField]
     Transform[] _walls;
 

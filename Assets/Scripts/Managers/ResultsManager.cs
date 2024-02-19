@@ -19,7 +19,6 @@ class ResultsManager : MonoBehaviour
             }
         }
     }
-    [SerializeField]
     int _achievedRooms;
 
     internal int IncorrectlyNeutralizedDoors
@@ -39,23 +38,14 @@ class ResultsManager : MonoBehaviour
             }
         }
     }
-    [SerializeField]
     int _incorrectlyNeutralizedDoors;
-    [SerializeField]
     internal int CorrectlyNeutralizedDoors;
-    [SerializeField]
     internal int NoMeasurements;
-    [SerializeField]
     internal int TooHighNeutralization;
-    [SerializeField]
     internal int TooLowNeutralization;
-    [SerializeField]
     internal int CorrectRooms;
-    [SerializeField]
     internal int InvalidRingValue;
-    [SerializeField]
     internal int MissedWalls;
-    [SerializeField]
     internal int WallsHitedManyTimes;
 
     [SerializeField]

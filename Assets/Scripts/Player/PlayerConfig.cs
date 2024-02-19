@@ -9,6 +9,12 @@ class PlayerConfig : ScriptableObject
     internal int InteractableLayer = 6;
     [SerializeField]
     internal int PlayerHP = 3;
+    [SerializeField]
+    internal float PlayerSpeed = 5f;
+    [SerializeField]
+    internal float JumpHeighy = 2.0f;
+    [SerializeField]
+    internal float Gravity = -9.8f;
 
     internal float OutlineScaleValue = 1.025f;
     internal string EquipmentTag = "Equipment";

@@ -2,16 +2,17 @@ using UnityEngine;
 
 class PlayerMovement : MonoBehaviour
 {
-    private CharacterController characterController;
-    private Vector3 playerVelocity;
-    private bool isGrounded;
-    public float speed = 5.0f;
-    public float jumpHeighy = 2.0f;
-    public float gravity = -9.8f;
+    CharacterController _characterController;
+    Vector3 _playerVelocity;
+    bool _isGrounded;
+
+    [SerializeField]
+    PlayerConfig _playerConfig;
+
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -19,7 +20,7 @@ class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = characterController.isGrounded;
+        _isGrounded = _characterController.isGrounded;
     }
 
     public void ProcessMove(Vector2 input)
@@ -27,21 +28,21 @@ class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
-        characterController.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
+        _characterController.Move(_playerConfig.PlayerSpeed * Time.deltaTime * transform.TransformDirection(moveDirection));
 
-        playerVelocity.y += gravity * Time.deltaTime;
-        if (isGrounded && playerVelocity.y < 0)
+        _playerVelocity.y += _playerConfig.Gravity * Time.deltaTime;
+        if (_isGrounded && _playerVelocity.y < 0)
         {
-            playerVelocity.y = -1.0f;
+            _playerVelocity.y = -1.0f;
         }
-        characterController.Move(playerVelocity * Time.deltaTime);
+        _characterController.Move(_playerVelocity * Time.deltaTime);
     }
 
     public void Jump()
     {
-        if (isGrounded)
+        if (_isGrounded)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeighy * -2.0f * gravity);
+            _playerVelocity.y = Mathf.Sqrt(_playerConfig.JumpHeighy * -2.0f * _playerConfig.Gravity);
         }
     }
 }

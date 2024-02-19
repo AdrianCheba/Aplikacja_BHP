@@ -15,9 +15,6 @@ class PlayerInteractions : MonoBehaviour
 
     [SerializeField]
     UIManager _uiManager; 
-
-    [SerializeField]
-    RoomManager _roomManager;
     
     InputManager _inputManager;
     LineRenderer _lineRenderer;
